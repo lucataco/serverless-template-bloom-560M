@@ -1,0 +1,7 @@
+{
+    "name": "Bloom 560M",
+    "category": "Natural Language",
+    "example_input": {"prompt": "It was a dark and stormy night"},
+    "example_output": {"output": "It was a dark and stormy night, and the wind was blowing in the direction of the west. The wind had been blowing for a long time, but it was now blowing very hard. It was like a hurricane, with a great storm of wind, which was coming in at a very rapid rate. I was awakened by the sound of a heavy bang, as if it had struck the roof of a house. My father was standing in his room, looking"},
+    "version": "1"
+}

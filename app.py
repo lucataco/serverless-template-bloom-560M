@@ -6,12 +6,10 @@ from transformers import BloomTokenizerFast, BloomForCausalLM
 def init():
     global model
     global tokenizer
-    
-    device = 0 if torch.cuda.is_available() else -1
 
     model_name = "bigscience/bloom-560m"
     tokenizer = BloomTokenizerFast.from_pretrained(model_name)
-    model = BloomForCausalLM.from_pretrained(model_name)
+    model = BloomForCausalLM.from_pretrained(model_name).to("cuda")
     
 
 # Inference is ran for every server call
@@ -26,9 +24,8 @@ def inference(model_inputs:dict) -> dict:
         return {'message': "No prompt provided"}
 
     # Run the model
-    result_length = len(prompt)+100
-    inputs = tokenizer(prompt, return_tensors="pt")
-    outputs = model.generate(inputs["input_ids"], max_length=result_length)
+    inputs = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
+    outputs = model.generate(inputs, max_length=100, no_repeat_ngram_size=2)
     result = tokenizer.decode(outputs[0])
 
     # Return the results as a dictionary
